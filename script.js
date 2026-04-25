@@ -1,4 +1,11 @@
+// مصفوفة البيانات التي تحتوي على جميع تطبيقاتك وروابطها
 const myApps = [
+    {
+        name: "Brawl QR Gift",
+        version: "Latest",
+        icon: "🎁",
+        url: "https://drive.google.com/file/d/1EIQjL91ZROenF41BgXinqTqQ9RlPdVwu/view"
+    },
     {
         name: "Download Tube",
         version: "v0.5 (Minecraft)",
@@ -31,13 +38,25 @@ const myApps = [
     }
 ];
 
+// تحديد العناصر من صفحة HTML
 const container = document.getElementById('apps');
 const searchInput = document.getElementById('search');
 
+/**
+ * وظيفة لعرض التطبيقات في الصفحة
+ * @param {string} filter - النص المراد البحث عنه
+ */
 function loadApps(filter = "") {
+    // مسح المحتوى الحالي لتجنب التكرار
     container.innerHTML = "";
-    const filtered = myApps.filter(a => a.name.toLowerCase().includes(filter.toLowerCase()));
 
+    // تصفية التطبيقات بناءً على الاسم أو الإصدار
+    const filtered = myApps.filter(app => 
+        app.name.toLowerCase().includes(filter.toLowerCase()) || 
+        app.version.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    // إنشاء كروت التطبيقات وإضافتها للواجهة
     filtered.forEach(app => {
         const card = `
             <div class="app-card">
@@ -49,10 +68,20 @@ function loadApps(filter = "") {
         `;
         container.innerHTML += card;
     });
+
+    // رسالة في حال لم يتم العثور على نتائج
+    if (filtered.length === 0) {
+        container.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>عذراً، لم يتم العثور على التطبيق المطلوب.</p>";
+    }
 }
 
-// تشغيل عند الكتابة في البحث
-searchInput.addEventListener('input', (e) => loadApps(e.target.value));
+// مراقبة ما يكتبه المستخدم في شريط البحث
+searchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value;
+    loadApps(searchTerm);
+});
 
-// تحميل التطبيقات لأول مرة
+// تشغيل الوظيفة لأول مرة عند فتح الصفحة لعرض كل التطبيقات
 loadApps();
+
+console.log("Qais Store JS loaded successfully with " + myApps.length + " apps.");
