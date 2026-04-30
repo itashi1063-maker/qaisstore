@@ -1,7 +1,7 @@
 :root {
     --bg-dark: #050505;
     --card-bg: rgba(20, 20, 20, 0.8);
-    --accent: #00d2ff; /* لون أزرق سماوي */
+    --accent: #00d2ff;
     --accent-glow: rgba(0, 210, 255, 0.3);
     --text: #ffffff;
 }
@@ -20,7 +20,6 @@ body {
     line-height: 1.6;
 }
 
-/* خلفية ضوئية خفيفة */
 .overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -73,7 +72,6 @@ header {
     margin: 0 auto;
 }
 
-/* تصميم بطاقة التطبيق */
 .app-card {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.05);

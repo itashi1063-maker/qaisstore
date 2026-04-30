@@ -1,4 +1,4 @@
-// مصفوفة البيانات التي تحتوي على جميع تطبيقاتك وروابطها
+// مصفوفة البيانات المحدثة
 const myApps = [
     {
         name: "Brawl QR Gift",
@@ -44,25 +44,18 @@ const myApps = [
     }
 ];
 
-// تحديد العناصر من صفحة HTML التي زودتني بها
-const container = document.getElementById('apps'); // متوافق مع id="apps" في ملفك
-const searchInput = document.getElementById('search'); // متوافق مع id="search" في ملفك
+const container = document.getElementById('apps');
+const searchInput = document.getElementById('search');
 
-/**
- * وظيفة لعرض التطبيقات في الصفحة
- * @param {string} filter - النص المراد البحث عنه
- */
 function loadApps(filter = "") {
-    // مسح المحتوى الحالي لتجنب التكرار
+    if (!container) return;
     container.innerHTML = "";
 
-    // تصفية التطبيقات بناءً على الاسم أو الإصدار
     const filtered = myApps.filter(app => 
         app.name.toLowerCase().includes(filter.toLowerCase()) || 
         app.version.toLowerCase().includes(filter.toLowerCase())
     );
 
-    // إنشاء كروت التطبيقات وإضافتها للواجهة
     filtered.forEach(app => {
         const card = `
             <div class="app-card">
@@ -75,21 +68,14 @@ function loadApps(filter = "") {
         container.innerHTML += card;
     });
 
-    // رسالة في حال لم يتم العثور على نتائج
     if (filtered.length === 0) {
         container.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>عذراً، لم يتم العثور على التطبيق المطلوب.</p>";
     }
 }
 
-// مراقبة ما يكتبه المستخدم في شريط البحث
 if (searchInput) {
-    searchInput.addEventListener('input', (event) => {
-        const searchTerm = event.target.value;
-        loadApps(searchTerm);
-    });
+    searchInput.addEventListener('input', (e) => loadApps(e.target.value));
 }
 
-// تشغيل الوظيفة لأول مرة عند فتح الصفحة لعرض كل التطبيقات
+// تحميل التطبيقات عند بدء التشغيل
 loadApps();
-
-console.log("Qais Store JS loaded successfully with " + myApps.length + " apps.");
